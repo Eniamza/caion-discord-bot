@@ -18,16 +18,17 @@ module.exports = {
             option.setName('input')
                 .setDescription('Enter a sentence or a word in English')
                 .setRequired(true)),
-	async execute(interaction) {
+	async execute(interaction,client) {
         const input = interaction.options.getString('input');
 
         //Filter out all the punctuation marks and special characters and convert the input to lowercase
 
         const filteredInput = input.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
         const finalInput = transformMissingCharacters(filteredInput);
+        const emoji = client.emojis.cache.find(emoji => emoji.name === "b_green");
         console.log(finalInput);
 
 
-		await interaction.reply(`Your input is: ${finalInput}`);
+		await interaction.reply(`${emoji}`);
 	},
 };

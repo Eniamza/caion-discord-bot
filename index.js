@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, Events, GatewayIntentBits, GUILD_EMOJIS_AND_STICKERS } = require('discord.js');
 const token = process.env.DISCORD_TOKEN;
 
 // Create a new client instance
@@ -44,7 +44,7 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 
 	try {
-		await command.execute(interaction);
+		await command.execute(interaction,client);
 	} catch (error) {
 		console.error(error);
 		if (interaction.replied || interaction.deferred) {
