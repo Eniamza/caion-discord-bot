@@ -1,4 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
+const matchInputToCaionWords = require('../../helpers/matchInputToCaionWords');
+const emojiMap = require('../../helpers/letterToEmojiMap.json');
 
 const transformMissingCharacters = (name) => {
     return name
@@ -23,12 +25,40 @@ module.exports = {
 
         //Filter out all the punctuation marks and special characters and convert the input to lowercase
 
-        const filteredInput = input.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
-        const finalInput = transformMissingCharacters(filteredInput);
-        const emoji = client.emojis.cache.find(emoji => emoji.name === "b_green");
-        console.log(finalInput);
+        const filteredInput = input.toLowerCase().replace(/[^a-zA-Z0-9\s]/g, '');
+        const result = await matchInputToCaionWords(filteredInput);
+        console.log(result);
+
+        let newString = '';
+
+        result.forEach((word) => {
+
+            if (word.type === 'matched') {
+                let caionWord = word.caionWords[0];
+
+                for (const letter of caionWord) {
+                    let greenMap = emojiMap.green
+                    newString += greenMap[letter];
+                }
+
+                newString += ' ';
+
+            } else {
+                let transformedWord = transformMissingCharacters(word.text);
+
+                for (const letter of transformedWord) {
+                    let purpleMap = emojiMap.purple
+                    newString += purpleMap[letter];
+                }
+
+                newString += ' ';
+            }
+
+        });
+
+        
 
 
-		await interaction.reply(`${emoji}`);
+		await interaction.reply(newString);
 	},
 };

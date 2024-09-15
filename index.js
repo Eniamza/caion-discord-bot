@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits, GUILD_EMOJIS_AND_STICKERS } = require('discord.js');
 const token = process.env.DISCORD_TOKEN;
+const dbConnect = require('./utils/dbConnect');
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -31,6 +32,7 @@ for (const folder of commandFolders) {
 // It makes some properties non-nullable.
 client.once(Events.ClientReady, readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+	dbConnect()
 });
 
 client.on(Events.InteractionCreate, async interaction => {
