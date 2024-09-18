@@ -23,6 +23,7 @@ module.exports = {
 	async execute(interaction,client) {
        try {
          const input = interaction.options.getString('input');
+         console.log(input);
  
          //Filter out all the punctuation marks and special characters and convert the input to lowercase
  
