@@ -22,6 +22,7 @@ module.exports = {
                 .setRequired(true)),
 	async execute(interaction,client) {
        try {
+        await interaction.deferReply({ ephemeral: true });
          const input = interaction.options.getString('input');
          console.log(input);
  
@@ -63,11 +64,11 @@ module.exports = {
         }
  
  
- 		await interaction.reply(newString);
+ 		await interaction.editReply(newString);
        } catch (error) {
 
         console.error(error);
-        await interaction.reply({ content: `Error: ${error.message}`, ephemeral: true });
+        await interaction.editReply({ content: `Error: ${error.message}`, ephemeral: true });
         
        }
 	},
