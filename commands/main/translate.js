@@ -22,7 +22,7 @@ module.exports = {
                 .setRequired(true)),
 	async execute(interaction,client) {
        try {
-        await interaction.deferReply({ ephemeral: true });
+        await interaction.deferReply();
          const input = interaction.options.getString('input');
          console.log(input);
  
