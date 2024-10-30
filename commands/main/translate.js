@@ -32,6 +32,8 @@ module.exports = {
          const filteredInput = input.toLowerCase().replace(/[^a-zA-Z0-9\s]/g, '');
          console.log(`filteredInput: ${filteredInput}`);
          const result = await matchInputToCaionWords(filteredInput);
+
+         console.log(result);
  
          let newString = '';
          let newRawString = '';
@@ -65,6 +67,7 @@ module.exports = {
  
          if (newString.length > 2000) {
             interaction.editReply({ content: `Error: The translated message exceeds the maximum length of 2000 characters.`, ephemeral: true });
+            return;
         }
 
         const newTranslation = await Translations.findOne({ translatedSentence: newRawString.trim() });
@@ -87,6 +90,7 @@ module.exports = {
 
         console.error(error);
         await interaction.editReply({ content: `Error: Fatal error occurred. Contact a moderator.`, ephemeral: true });
+
         
        }
 	},

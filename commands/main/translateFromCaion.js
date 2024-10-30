@@ -49,7 +49,7 @@ module.exports = {
       }
   
   
-      interaction.reply({ content: 'This is a placeholder response to the Translate from Caion command.' });
+      // interaction.reply({ content: 'This is a placeholder response to the Translate from Caion command.' });
     } catch (error) {
 
       console.error(error);
